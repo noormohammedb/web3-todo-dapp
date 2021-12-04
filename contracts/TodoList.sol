@@ -12,6 +12,8 @@ contract TodoList {
 
 	mapping(uint256 => Task) public tasks;
 
+	event TaskCreated(uint256 id, string content, bool completed);
+
 	constructor() public {
 		createTask("test");
 	}
@@ -19,6 +21,8 @@ contract TodoList {
 	function createTask(string memory newTask) public {
 		tasks[taskCount] = Task(taskCount, newTask, false);
 		taskCount++;
+
+		emit TaskCreated(taskCount, newTask, false);
 	}
 
 	function getAllTasksIndex() public view returns (uint256) {
